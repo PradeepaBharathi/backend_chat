@@ -1,10 +1,13 @@
-const express = require("express");
-const dotenv = require("dotenv");
-const { default: mongoose } = require("mongoose");
+import express from "express"
+import dotenv from "dotenv"
+import cors from "cors"
+import mongoose from "mongoose";
 const app = express();
-const cors = require("cors");
-const { notFound, errorHandler } = require("./middleware/errorMiddleware.js");
 
+import { notFound, errorHandler } from "./middleware/errorMiddleware.js"
+import { messageRouter } from "./Routes/messageRoutes.js";
+import { loginRouter } from "./Routes/userRoutes.js";
+import { ChatRouter } from "./Routes/chatRoutes.js";
 app.use(
   cors({
     origin: "*",
@@ -14,9 +17,8 @@ dotenv.config();
 
 app.use(express.json());
 
-const userRoutes = require("./Routes/userRoutes.js");
-const chatRoutes = require("./Routes/chatRoutes.js");
-const messageRoutes = require("./Routes/messageRoutes.js");
+
+
 
 const connectDb = async () => {
   try {
@@ -32,13 +34,13 @@ app.get("/", (req, res) => {
   res.send("API is running123");
 });
 
-app.use("/user", userRoutes);
-app.use("/chat", chatRoutes);
-app.use("/message", messageRoutes);
+app.use("/user", loginRouter);
+app.use("/chat", ChatRouter);
+app.use("/message",messageRouter);
 
 // Error Handling middlewares
 app.use(notFound);
 app.use(errorHandler);
 
 const PORT = process.env.PORT || 5000;
-app.listen(PORT, console.log("Server is Running..."));
+app.listen(PORT, console.log(`Server is Running...${PORT}`));
