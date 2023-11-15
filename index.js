@@ -3,7 +3,7 @@ const dotenv = require("dotenv");
 const { default: mongoose } = require("mongoose");
 const app = express();
 const cors = require("cors");
-const { notFound, errorHandler } = require("./middleware/errorMiddleware");
+const { notFound, errorHandler } = require("./middleware/errorMiddleware.js");
 
 app.use(
   cors({
@@ -14,9 +14,9 @@ dotenv.config();
 
 app.use(express.json());
 
-const userRoutes = require("./Routes/userRoutes");
-const chatRoutes = require("./Routes/chatRoutes");
-const messageRoutes = require("./Routes/messageRoutes");
+const userRoutes = require("./Routes/userRoutes.js");
+const chatRoutes = require("./Routes/chatRoutes.js");
+const messageRoutes = require("./Routes/messageRoutes.js");
 
 const connectDb = async () => {
   try {

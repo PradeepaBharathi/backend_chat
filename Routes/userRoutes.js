@@ -3,9 +3,9 @@ const {
   loginController,
   registerController,
   fetchAllUsersController,
-} = require("../Controllers/userController");
+} = require("../Controllers/userController.js");
 
-const { protect } = require("../middleware/authMiddleware");
+const { protect } = require("../middleware/authMiddleware.js");
 
 const Router = express.Router();
 

@@ -5,8 +5,8 @@ const {
   createGroupChat,
   groupExit,
   fetchGroups,
-} = require("../Controllers/chatControllers");
-const { protect } = require("../middleware/authMiddleware");
+} = require("../Controllers/chatControllers.js");
+const { protect } = require("../middleware/authMiddleware.js");
 
 const router = express.Router();
 
