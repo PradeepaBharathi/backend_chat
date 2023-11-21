@@ -1,11 +1,11 @@
-import express from "express";
-import {
+const express = require("express");
+const {
   loginController,
   registerController,
   fetchAllUsersController,
-} from "../Controllers/userController.js";
+} = require("../Controllers/userController.js");
 
-import { protect } from "../middleware/authMiddleware.js";
+const { protect } = require("../middleware/authMiddleware.js");
 
 const Router = express.Router();
 
@@ -13,4 +13,4 @@ Router.post("/login", loginController);
 Router.post("/register", registerController);
 Router.get("/fetchUsers", protect, fetchAllUsersController);
 
-export const loginRouter = Router;
+module.exports = { loginRouter: Router };

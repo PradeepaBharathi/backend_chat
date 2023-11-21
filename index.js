@@ -1,24 +1,22 @@
-import express from "express"
-import dotenv from "dotenv"
-import cors from "cors"
-import mongoose from "mongoose";
+const express = require("express")
+const dotenv = require("dotenv");
+const cors = require("cors");
+const mongoose = require("mongoose");
+const { notFound, errorHandler } = require("./middleware/errorMiddleware.js");
+const { messageRouter } = require("./Routes/messageRoutes.js");
+const { loginRouter } = require("./Routes/userRoutes.js");
+const { ChatRouter } = require("./Routes/chatRoutes.js");
+
 const app = express();
 
-import { notFound, errorHandler } from "./middleware/errorMiddleware.js"
-import { messageRouter } from "./Routes/messageRoutes.js";
-import { loginRouter } from "./Routes/userRoutes.js";
-import { ChatRouter } from "./Routes/chatRoutes.js";
 app.use(
   cors({
     origin: "*",
   })
 );
+
 dotenv.config();
-
 app.use(express.json());
-
-
-
 
 const connectDb = async () => {
   try {
@@ -36,7 +34,7 @@ app.get("/", (req, res) => {
 
 app.use("/user", loginRouter);
 app.use("/chat", ChatRouter);
-app.use("/message",messageRouter);
+app.use("/message", messageRouter);
 
 // Error Handling middlewares
 app.use(notFound);

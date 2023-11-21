@@ -1,12 +1,12 @@
-import express from "express";
-import  {
+const express = require("express");
+const {
   accessChat,
   fetchChats,
   createGroupChat,
   groupExit,
   fetchGroups,
-} from "../Controllers/chatControllers.js";
-import  { protect } from "../middleware/authMiddleware.js";
+} = require("../Controllers/chatControllers.js");
+const { protect } = require("../middleware/authMiddleware.js");
 
 const router = express.Router();
 
@@ -16,4 +16,4 @@ router.route("/createGroup").post(protect, createGroupChat);
 router.route("/fetchGroups").get(protect, fetchGroups);
 router.route("/groupExit").put(protect, groupExit);
 
-export const ChatRouter = router;
+module.exports = { ChatRouter: router };

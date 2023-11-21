@@ -1,23 +1,23 @@
-import mongoose from "mongoose";
-import bcrypt from "bcryptjs";
+const mongoose = require("mongoose");
+const bcrypt = require("bcryptjs");
 
 const userModel = mongoose.Schema(
   {
     name: {
       type: String,
-      requried: true,
+      required: true,
     },
     email: {
       type: String,
-      requried: true,
+      required: true,
     },
     password: {
       type: String,
-      requried: true,
+      required: true,
     },
   },
   {
-    timeStamp: true,
+    timestamps: true,
   }
 );
 
@@ -26,7 +26,7 @@ userModel.methods.matchPassword = async function (enteredPassword) {
 };
 
 userModel.pre("save", async function (next) {
-  if (!this.isModified) {
+  if (!this.isModified("password")) {
     next();
   }
 
@@ -34,7 +34,6 @@ userModel.pre("save", async function (next) {
   this.password = await bcrypt.hash(this.password, salt);
 });
 
-
 const User = mongoose.model("User", userModel);
 
-export default User;
+module.exports = User;
